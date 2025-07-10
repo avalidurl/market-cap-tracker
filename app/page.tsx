@@ -142,7 +142,7 @@ export default function Home() {
               <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10 shadow-lg">
                 <div className="text-center">
                   <div className="font-semibold mb-1">Update Frequencies:</div>
-                  <div>• NVIDIA: Every hour (Alpha Vantage limit: 25/day)</div>
+                  <div>• NVIDIA: Every hour</div>
                   <div>• Crypto: Every hour (synced for consistency)</div>
                   <div className="text-gray-300 mt-1">Both cached for performance</div>
                 </div>
