@@ -5,9 +5,10 @@ import { useEffect } from 'react';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 // Analytics functions
-const trackEvent = (eventName: string, parameters: any = {}) => {
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', eventName, parameters);
+
+const trackEvent = (eventName: string, parameters: Record<string, unknown> = {}) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, parameters);
   }
 };
 
