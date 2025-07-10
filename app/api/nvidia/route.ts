@@ -4,7 +4,7 @@ export async function GET() {
   try {
     const response = await fetch(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=NVDA&apikey=${process.env.ALPHA_VANTAGE_API_KEY}`,
-      { next: { revalidate: 300 } } // Cache for 5 minutes
+      { next: { revalidate: 3600 } } // Cache for 1 hour
     );
     
     const data = await response.json();
@@ -32,7 +32,7 @@ export async function GET() {
       timestamp: new Date().toISOString()
     }, {
       headers: {
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600'
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200'
       }
     });
     

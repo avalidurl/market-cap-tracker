@@ -27,13 +27,13 @@ export default function Home() {
   const { data: nvidiaData, error: nvidiaError } = useSWR<NvidiaData>(
     '/api/nvidia',
     fetcher,
-    { refreshInterval: 300000 } // 5 minutes
+    { refreshInterval: 3600000 } // 1 hour (3,600,000ms)
   );
 
   const { data: cryptoData, error: cryptoError } = useSWR<CryptoData>(
     'https://api.coingecko.com/api/v3/global',
     fetcher,
-    { refreshInterval: 300000 } // 5 minutes
+    { refreshInterval: 3600000 } // 1 hour (3,600,000ms)
   );
 
   if (nvidiaError || cryptoError) {
@@ -123,7 +123,7 @@ export default function Home() {
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500">
-          Updates every 5 minutes • No API keys required • Zero server costs
+          Updates every hour • Secure API integration • Zero hosting costs
         </div>
       </div>
     </div>
