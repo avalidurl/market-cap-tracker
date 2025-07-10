@@ -122,8 +122,25 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-        <div className="text-center text-sm text-gray-500">
-          Updates every hour • Secure API integration • Zero hosting costs
+        <div className="text-center text-sm text-gray-500 space-y-2">
+          <div>
+            Made by{' '}
+            <a 
+              href="https://x.com/0xgokhan" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 underline"
+            >
+              @0xgokhan
+            </a>
+          </div>
+          <div className="text-xs">
+            Buy me a Mac Mini: 
+            <br />
+            <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">
+              0x36de990133D36d7E3DF9a820aA3eDE5a2320De71
+            </code>
+          </div>
         </div>
       </div>
     </div>
