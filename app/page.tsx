@@ -1,103 +1,131 @@
-import Image from "next/image";
+'use client';
+import useSWR from 'swr';
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+interface NvidiaData {
+  price: number;
+  change: number;
+  changePercent: number;
+  marketCap: string;
+  timestamp: string;
+}
+
+interface CryptoData {
+  data: {
+    total_market_cap: {
+      usd: number;
+    };
+    market_cap_percentage: {
+      btc: number;
+    };
+    active_cryptocurrencies: number;
+  };
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { data: nvidiaData, error: nvidiaError } = useSWR<NvidiaData>(
+    '/api/nvidia',
+    fetcher,
+    { refreshInterval: 300000 } // 5 minutes
+  );
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const { data: cryptoData, error: cryptoError } = useSWR<CryptoData>(
+    'https://api.coingecko.com/api/v3/global',
+    fetcher,
+    { refreshInterval: 300000 } // 5 minutes
+  );
+
+  if (nvidiaError || cryptoError) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">Error Loading Data</h1>
+          <p className="text-gray-600">Please refresh the page</p>
+          {nvidiaError && <p className="text-sm text-gray-500">NVIDIA API Error</p>}
+          {cryptoError && <p className="text-sm text-gray-500">Crypto API Error</p>}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+    );
+  }
+
+  if (!nvidiaData || !cryptoData) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading market data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Extract crypto data
+  const cryptoMarketCap = cryptoData.data.total_market_cap.usd / 1e12;
+  const btcDominance = cryptoData.data.market_cap_percentage.btc;
+
+  // Calculate difference
+  const difference = parseFloat(nvidiaData.marketCap) - cryptoMarketCap;
+  const percentageDiff = (difference / cryptoMarketCap) * 100;
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            NVIDIA vs Crypto Market Cap
+          </h1>
+          <p className="text-gray-600">Real-time comparison</p>
+        </div>
+
+        {/* Main Comparison */}
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* NVIDIA */}
+            <div className="text-center">
+              <div className="text-6xl font-bold text-green-600 mb-2">
+                ${nvidiaData.marketCap}T
+              </div>
+              <div className="text-xl font-semibold text-gray-900 mb-2">NVIDIA</div>
+              <div className="text-sm text-gray-600">
+                Stock Price: ${nvidiaData.price.toFixed(2)}
+              </div>
+              <div className={`text-sm ${nvidiaData.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                {nvidiaData.changePercent >= 0 ? '↗' : '↘'} {Math.abs(nvidiaData.changePercent).toFixed(2)}%
+              </div>
+            </div>
+
+            {/* Crypto */}
+            <div className="text-center">
+              <div className="text-6xl font-bold text-orange-600 mb-2">
+                ${cryptoMarketCap.toFixed(2)}T
+              </div>
+              <div className="text-xl font-semibold text-gray-900 mb-2">Total Crypto</div>
+              <div className="text-sm text-gray-600">
+                {cryptoData.data.active_cryptocurrencies.toLocaleString()} Assets
+              </div>
+              <div className="text-sm text-gray-600">
+                BTC Dominance: {btcDominance.toFixed(1)}%
+              </div>
+            </div>
+          </div>
+
+          {/* Difference */}
+          <div className="mt-8 pt-8 border-t text-center">
+            <div className="text-2xl font-bold text-purple-600 mb-2">
+              Difference: {difference >= 0 ? '+' : ''}${difference.toFixed(2)}T
+            </div>
+            <div className="text-lg text-gray-600">
+              ({percentageDiff >= 0 ? '+' : ''}{percentageDiff.toFixed(1)}%)
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="text-center text-sm text-gray-500">
+          Updates every 5 minutes • No API keys required • Zero server costs
+        </div>
+      </div>
     </div>
   );
 }
