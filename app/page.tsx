@@ -1,6 +1,6 @@
 'use client';
 import useSWR from 'swr';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -49,6 +49,8 @@ interface CryptoData {
 }
 
 export default function Home() {
+  const [copied, setCopied] = useState(false);
+
   const { data: nvidiaData, error: nvidiaError } = useSWR<NvidiaData>(
     '/api/nvidia',
     fetcher,
@@ -213,19 +215,28 @@ export default function Home() {
           <div className="text-xs">
             Buy me a Mac Mini: 
             <br />
-            <code 
-              className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200"
-              onClick={() => {
-                navigator.clipboard.writeText('0x36de990133D36d7E3DF9a820aA3eDE5a2320De71');
-                trackEvent('donation_address_copy', {
-                  event_category: 'engagement',
-                  event_label: 'Mac Mini Donation',
-                });
-              }}
-              title="Click to copy address"
-            >
-              0x36de990133D36d7E3DF9a820aA3eDE5a2320De71
-            </code>
+            <div className="relative inline-block">
+              <code 
+                className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200 transition-colors"
+                onClick={() => {
+                  navigator.clipboard.writeText('0x36de990133D36d7E3DF9a820aA3eDE5a2320De71');
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 2000);
+                  trackEvent('donation_address_copy', {
+                    event_category: 'engagement',
+                    event_label: 'Mac Mini Donation',
+                  });
+                }}
+                title="Click to copy address"
+              >
+                0x36de990133D36d7E3DF9a820aA3eDE5a2320De71
+              </code>
+              {copied && (
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-xs px-2 py-1 rounded shadow-lg animate-pulse">
+                  Copied!
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
