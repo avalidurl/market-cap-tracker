@@ -127,7 +127,29 @@ export default function Home() {
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
             NVIDIA vs Crypto Market Cap
           </h1>
-          <p className="text-gray-600">Real-time comparison</p>
+          <div className="flex items-center justify-center gap-2">
+            <p className="text-gray-600">Real-time comparison</p>
+            <div className="relative group">
+              <div 
+                className="w-4 h-4 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs cursor-help"
+                onMouseEnter={() => trackEvent('info_tooltip_view', {
+                  event_category: 'engagement',
+                  event_label: 'Update Frequency Info',
+                })}
+              >
+                i
+              </div>
+              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10 shadow-lg">
+                <div className="text-center">
+                  <div className="font-semibold mb-1">Update Frequencies:</div>
+                  <div>• NVIDIA: Every hour (Alpha Vantage limit: 25/day)</div>
+                  <div>• Crypto: Every hour (synced for consistency)</div>
+                  <div className="text-gray-300 mt-1">Both cached for performance</div>
+                </div>
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Main Comparison */}
