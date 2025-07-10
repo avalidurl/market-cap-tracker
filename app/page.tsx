@@ -251,11 +251,11 @@ export default function Home() {
           <div className="text-xs">
             Buy me a Mac Mini: 
             <br />
-            <div className="space-y-2">
-              <div className="relative inline-block">
+            <div className="space-y-3">
+              <div className="relative">
                 <div className="text-gray-400 text-xs mb-1">EVM:</div>
                 <code 
-                  className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200 transition-colors block"
+                  className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200 transition-colors block break-all"
                   onClick={() => {
                     navigator.clipboard.writeText('0x36de990133D36d7E3DF9a820aA3eDE5a2320De71');
                     setCopied(true);
@@ -275,10 +275,10 @@ export default function Home() {
                   </div>
                 )}
               </div>
-              <div className="relative inline-block">
+              <div className="relative">
                 <div className="text-gray-400 text-xs mb-1">Solana:</div>
                 <code 
-                  className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200 transition-colors block"
+                  className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200 transition-colors block break-all"
                   onClick={() => {
                     navigator.clipboard.writeText('J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg');
                     setCopiedSolana(true);
