@@ -132,23 +132,40 @@ export default function Home() {
           </h1>
           <div className="flex items-center justify-center gap-2">
             <p className="text-gray-600">Real-time comparison</p>
-            <div className="relative">
+            <div className="relative group">
               <div 
-                className="w-4 h-4 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs cursor-pointer select-none"
+                className="w-4 h-4 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs cursor-help md:cursor-help touch:cursor-pointer select-none"
                 onClick={() => {
+                  // Only handle click on mobile/tablet
                   setShowTooltip(!showTooltip);
                   trackEvent('info_tooltip_view', {
                     event_category: 'engagement',
                     event_label: 'Update Frequency Info',
                   });
                 }}
-                onMouseEnter={() => !showTooltip && setShowTooltip(true)}
-                onMouseLeave={() => setTimeout(() => setShowTooltip(false), 3000)}
+                onMouseEnter={() => trackEvent('info_tooltip_view', {
+                  event_category: 'engagement',
+                  event_label: 'Update Frequency Info',
+                })}
               >
                 i
               </div>
+              
+              {/* Desktop hover tooltip */}
+              <div className="absolute top-6 left-1/2 transform -translate-x-1/2 bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-4 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50 shadow-xl hidden md:block">
+                <div className="text-center">
+                  <div className="font-semibold mb-2 text-gray-900">Update Frequencies:</div>
+                  <div className="mb-1">• NVIDIA: Every hour</div>
+                  <div className="mb-1">• Crypto: Every hour (synced for consistency)</div>
+                  <div className="text-gray-500 mt-2 text-xs">Both cached for performance</div>
+                </div>
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-white"></div>
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 translate-y-px w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-300"></div>
+              </div>
+
+              {/* Mobile/tablet click tooltip */}
               {showTooltip && (
-                <div className="absolute top-6 left-1/2 transform -translate-x-1/2 bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-4 py-3 z-50 shadow-xl max-w-xs">
+                <div className="absolute top-6 left-1/2 transform -translate-x-1/2 bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-4 py-3 z-50 shadow-xl max-w-xs md:hidden">
                   <div className="text-center">
                     <div className="font-semibold mb-2 text-gray-900">Update Frequencies:</div>
                     <div className="mb-1">• NVIDIA: Every hour</div>
@@ -159,7 +176,7 @@ export default function Home() {
                   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 translate-y-px w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-300"></div>
                   {/* Close button for mobile */}
                   <button 
-                    className="absolute -top-2 -right-2 w-5 h-5 bg-gray-400 text-white rounded-full text-xs flex items-center justify-center hover:bg-gray-600 md:hidden"
+                    className="absolute -top-2 -right-2 w-5 h-5 bg-gray-400 text-white rounded-full text-xs flex items-center justify-center"
                     onClick={(e) => {
                       e.stopPropagation();
                       setShowTooltip(false);
