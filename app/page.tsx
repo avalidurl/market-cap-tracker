@@ -139,14 +139,15 @@ export default function Home() {
               >
                 i
               </div>
-              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded-lg px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10 shadow-lg">
+              <div className="absolute top-6 left-1/2 transform -translate-x-1/2 bg-white border border-gray-300 text-gray-800 text-xs rounded-lg px-4 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50 shadow-xl">
                 <div className="text-center">
-                  <div className="font-semibold mb-1">Update Frequencies:</div>
-                  <div>• NVIDIA: Every hour</div>
-                  <div>• Crypto: Every hour (synced for consistency)</div>
-                  <div className="text-gray-300 mt-1">Both cached for performance</div>
+                  <div className="font-semibold mb-2 text-gray-900">Update Frequencies:</div>
+                  <div className="mb-1">• NVIDIA: Every hour</div>
+                  <div className="mb-1">• Crypto: Every hour (synced for consistency)</div>
+                  <div className="text-gray-500 mt-2 text-xs">Both cached for performance</div>
                 </div>
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-white"></div>
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 translate-y-px w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-300"></div>
               </div>
             </div>
           </div>
