@@ -50,6 +50,7 @@ interface CryptoData {
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
+  const [copiedSolana, setCopiedSolana] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
 
   const { data: nvidiaData, error: nvidiaError } = useSWR<NvidiaData>(
@@ -250,27 +251,53 @@ export default function Home() {
           <div className="text-xs">
             Buy me a Mac Mini: 
             <br />
-            <div className="relative inline-block">
-              <code 
-                className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200 transition-colors"
-                onClick={() => {
-                  navigator.clipboard.writeText('0x36de990133D36d7E3DF9a820aA3eDE5a2320De71');
-                  setCopied(true);
-                  setTimeout(() => setCopied(false), 2000);
-                  trackEvent('donation_address_copy', {
-                    event_category: 'engagement',
-                    event_label: 'Mac Mini Donation',
-                  });
-                }}
-                title="Click to copy address"
-              >
-                0x36de990133D36d7E3DF9a820aA3eDE5a2320De71
-              </code>
-              {copied && (
-                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-xs px-2 py-1 rounded shadow-lg animate-pulse">
-                  Copied!
-                </div>
-              )}
+            <div className="space-y-2">
+              <div className="relative inline-block">
+                <div className="text-gray-400 text-xs mb-1">EVM:</div>
+                <code 
+                  className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200 transition-colors block"
+                  onClick={() => {
+                    navigator.clipboard.writeText('0x36de990133D36d7E3DF9a820aA3eDE5a2320De71');
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                    trackEvent('donation_address_copy', {
+                      event_category: 'engagement',
+                      event_label: 'EVM Mac Mini Donation',
+                    });
+                  }}
+                  title="Click to copy EVM address"
+                >
+                  0x36de990133D36d7E3DF9a820aA3eDE5a2320De71
+                </code>
+                {copied && (
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-xs px-2 py-1 rounded shadow-lg animate-pulse">
+                    Copied!
+                  </div>
+                )}
+              </div>
+              <div className="relative inline-block">
+                <div className="text-gray-400 text-xs mb-1">Solana:</div>
+                <code 
+                  className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200 transition-colors block"
+                  onClick={() => {
+                    navigator.clipboard.writeText('J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg');
+                    setCopiedSolana(true);
+                    setTimeout(() => setCopiedSolana(false), 2000);
+                    trackEvent('donation_address_copy', {
+                      event_category: 'engagement',
+                      event_label: 'Solana Mac Mini Donation',
+                    });
+                  }}
+                  title="Click to copy Solana address"
+                >
+                  J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg
+                </code>
+                {copiedSolana && (
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-xs px-2 py-1 rounded shadow-lg animate-pulse">
+                    Copied!
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
