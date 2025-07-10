@@ -20,7 +20,6 @@ export async function GET() {
     }
     
     const price = parseFloat(quote['05. price']);
-    const previousClose = parseFloat(quote['08. previous close']);
     const change = parseFloat(quote['09. change']);
     const changePercent = parseFloat(quote['10. change percent'].replace('%', ''));
     const marketCap = (price * 24.4e9) / 1e12; // 24.4B shares
