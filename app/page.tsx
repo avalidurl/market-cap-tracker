@@ -1,7 +1,31 @@
 'use client';
 import useSWR from 'swr';
+import { useEffect } from 'react';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+// Analytics functions
+const trackEvent = (eventName: string, parameters: any = {}) => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', eventName, parameters);
+  }
+};
+
+const trackLinkClick = (linkName: string, url: string) => {
+  trackEvent('click', {
+    event_category: 'engagement',
+    event_label: linkName,
+    link_url: url,
+  });
+};
+
+const trackDataLoad = (dataType: string, success: boolean) => {
+  trackEvent('data_load', {
+    event_category: 'api',
+    event_label: dataType,
+    success: success,
+  });
+};
 
 interface NvidiaData {
   price: number;
@@ -35,6 +59,33 @@ export default function Home() {
     fetcher,
     { refreshInterval: 3600000 } // 1 hour (3,600,000ms)
   );
+
+  // Track data loading events
+  useEffect(() => {
+    if (nvidiaData) {
+      trackDataLoad('nvidia', true);
+    }
+    if (nvidiaError) {
+      trackDataLoad('nvidia', false);
+    }
+  }, [nvidiaData, nvidiaError]);
+
+  useEffect(() => {
+    if (cryptoData) {
+      trackDataLoad('crypto', true);
+    }
+    if (cryptoError) {
+      trackDataLoad('crypto', false);
+    }
+  }, [cryptoData, cryptoError]);
+
+  // Track page view
+  useEffect(() => {
+    trackEvent('page_view', {
+      page_title: 'Market Cap Tracker',
+      page_location: window.location.href,
+    });
+  }, []);
 
   if (nvidiaError || cryptoError) {
     return (
@@ -130,6 +181,7 @@ export default function Home() {
               target="_blank" 
               rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-800 underline"
+              onClick={() => trackLinkClick('Twitter Profile', 'https://x.com/0xgokhan')}
             >
               @0xgokhan
             </a>
@@ -137,7 +189,17 @@ export default function Home() {
           <div className="text-xs">
             Buy me a Mac Mini: 
             <br />
-            <code className="bg-gray-100 px-1 py-0.5 rounded text-xs">
+            <code 
+              className="bg-gray-100 px-1 py-0.5 rounded text-xs cursor-pointer hover:bg-gray-200"
+              onClick={() => {
+                navigator.clipboard.writeText('0x36de990133D36d7E3DF9a820aA3eDE5a2320De71');
+                trackEvent('donation_address_copy', {
+                  event_category: 'engagement',
+                  event_label: 'Mac Mini Donation',
+                });
+              }}
+              title="Click to copy address"
+            >
               0x36de990133D36d7E3DF9a820aA3eDE5a2320De71
             </code>
           </div>
