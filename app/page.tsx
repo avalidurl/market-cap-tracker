@@ -184,54 +184,14 @@ export default function Home() {
 
       {/* Privacy Popup */}
       {showPrivacyPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] p-4">
-          <div className="bg-white rounded-lg shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 scale-100">
-            <div className="p-6">
-              <div className="flex items-center mb-4">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                  <span className="text-blue-600 text-lg">🔒</span>
+        <div className="fixed bottom-4 right-4 z-[9999] max-w-sm w-full mx-4">
+          <div className="bg-white rounded-lg shadow-2xl border transform transition-all duration-300 slide-up">
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center">
+                  <span className="text-blue-600 text-lg mr-2">🔒</span>
+                  <h3 className="text-sm font-semibold text-gray-900">Privacy Notice</h3>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900">Privacy & Data Collection</h2>
-              </div>
-              
-              <div className="space-y-4 text-sm text-gray-700">
-                <p>
-                  <strong>We value your privacy.</strong> This website uses minimal data collection to improve your experience:
-                </p>
-                
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="font-semibold text-gray-900 mb-2">What we collect:</h3>
-                  <ul className="space-y-1 text-xs">
-                    <li>• <strong>Google Analytics:</strong> Anonymous usage statistics, page views, and user interactions</li>
-                    <li>• <strong>Performance data:</strong> Page load times and error reporting</li>
-                    <li>• <strong>No personal data:</strong> We don&apos;t collect names, emails, or personal information</li>
-                    <li>• <strong>Local storage:</strong> Preferences and settings (stored on your device)</li>
-                  </ul>
-                </div>
-
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <h3 className="font-semibold text-blue-900 mb-2">Why we collect this:</h3>
-                  <ul className="space-y-1 text-xs text-blue-800">
-                    <li>• Improve website performance and user experience</li>
-                    <li>• Understand which features are most useful</li>
-                    <li>• Fix bugs and technical issues</li>
-                    <li>• Keep the service free and accessible</li>
-                  </ul>
-                </div>
-
-                <p className="text-xs text-gray-600">
-                  By continuing to use this site, you consent to our use of Google Analytics for these purposes. 
-                  You can disable analytics in your browser settings at any time.
-                </p>
-              </div>
-
-              <div className="flex gap-3 mt-6">
-                <button
-                  onClick={handlePrivacyAccept}
-                  className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                >
-                  I Understand
-                </button>
                 <button
                   onClick={() => {
                     setShowPrivacyPopup(false);
@@ -240,11 +200,22 @@ export default function Home() {
                       event_label: 'Privacy Disclaimer Dismissed',
                     });
                   }}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors text-sm"
+                  className="text-gray-400 hover:text-gray-600 text-lg"
                 >
-                  Close
+                  ×
                 </button>
               </div>
+              
+              <p className="text-xs text-gray-700 mb-3">
+                We use Google Analytics for anonymous usage statistics. No personal data is collected.
+              </p>
+
+              <button
+                onClick={handlePrivacyAccept}
+                className="w-full bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 transition-colors font-medium"
+              >
+                Got it
+              </button>
             </div>
           </div>
         </div>
@@ -358,198 +329,146 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Data Sources & Resources Section */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">📊 Data Sources & Resources</h2>
-            <p className="text-gray-600">Information about our data sources and technical infrastructure</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="bg-blue-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-blue-900 mb-3">📊 Financial Data Sources</h3>
-                <ul className="text-blue-700 text-sm space-y-2">
-                  <li>• Yahoo Finance (NVIDIA stock data)</li>
-                  <li>• CoinGecko (Cryptocurrency data)</li>
-                  <li>• Alpha Vantage (Real-time quotes)</li>
-                  <li>• Market cap calculations</li>
-                </ul>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="bg-green-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-green-900 mb-3">📰 News Sources</h3>
-                <ul className="text-green-700 text-sm space-y-2">
-                  <li>• Google News API</li>
-                  <li>• Financial news aggregation</li>
-                  <li>• Real-time market updates</li>
-                  <li>• SEC filings integration</li>
-                </ul>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="bg-purple-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-purple-900 mb-3">🚀 Infrastructure</h3>
-                <ul className="text-purple-700 text-sm space-y-2">
-                  <li>• Vercel (Hosting & deployment)</li>
-                  <li>• Next.js (React framework)</li>
-                  <li>• SWR (Data fetching & caching)</li>
-                  <li>• Tailwind CSS (Styling)</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+        {/* Data Sources */}
+        <div className="text-center text-sm text-gray-600 mb-8">
+          <p>
+            Data sources: <a href="https://www.alphavantage.co" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Alpha Vantage</a> (NVIDIA), <a href="https://www.coingecko.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">CoinGecko</a> (Crypto) | 
+            Built with <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Next.js</a> on <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Vercel</a>
+          </p>
         </div>
 
         {/* Community Section */}
-        <div id="community" className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">💬 Community</h2>
-            <p className="text-gray-600">Join the conversation about market cap tracking and crypto vs tech stocks</p>
+        <div id="community" className="bg-white rounded-lg shadow-lg p-6 mb-8">
+          <div className="text-center mb-4">
+            <h2 className="text-xl font-bold text-gray-900 mb-2">💬 Community</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="text-center">
-              <div className="bg-blue-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-blue-900 mb-2">Follow Updates</h3>
-                <p className="text-blue-700 text-sm mb-4">Get the latest insights and market analysis</p>
-                <a
-                  href="https://x.com/0xgokhan"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                  onClick={() => trackLinkClick('Twitter Community', 'https://x.com/0xgokhan')}
-                >
-                  <span>Follow @0xgokhan</span>
-                </a>
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="bg-purple-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-purple-900 mb-2">Other Projects</h3>
-                <p className="text-purple-700 text-sm mb-4">Check out SP500 CapEx tracker</p>
-                <a
-                  href="https://sp500-capex.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
-                  onClick={() => trackLinkClick('SP100 CapEx', 'https://sp500-capex.vercel.app/')}
-                >
-                  <span>Visit SP100 CapEx</span>
-                </a>
-              </div>
-            </div>
+          <div className="flex flex-wrap justify-center gap-3 text-sm">
+            <a
+              href="https://t.me/marketresearchunit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+              onClick={() => trackLinkClick('Telegram Channel', 'https://t.me/marketresearchunit')}
+            >
+              📱 Telegram Channel
+            </a>
+            <a
+              href="https://t.me/marketresearchbox"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+              onClick={() => trackLinkClick('Telegram Group', 'https://t.me/marketresearchbox')}
+            >
+              💬 Telegram Group
+            </a>
+            <a
+              href="https://discord.gg/ZJpnhF3bDn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-indigo-500 text-white px-3 py-2 rounded-lg hover:bg-indigo-600 transition-colors"
+              onClick={() => trackLinkClick('Discord Server', 'https://discord.gg/ZJpnhF3bDn')}
+            >
+              🎮 Discord Server
+            </a>
+            <a
+              href="https://x.com/0xgokhan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gray-900 text-white px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+              onClick={() => trackLinkClick('Twitter Profile', 'https://x.com/0xgokhan')}
+            >
+              🐦 Twitter
+            </a>
+            <a
+              href="https://sp500-capex.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+              onClick={() => trackLinkClick('SP100 CapEx', 'https://sp500-capex.vercel.app/')}
+            >
+              📊 SP100 CapEx
+            </a>
           </div>
         </div>
 
         {/* Donate Section */}
-        <div id="donate" className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">💰 Support This Project</h2>
-            <p className="text-gray-600">Help us maintain and improve the service with premium API access</p>
+        <div id="donate" className="bg-white rounded-lg shadow-lg p-6 mb-8">
+          <div className="text-center mb-4">
+            <h2 className="text-xl font-bold text-gray-900 mb-2">💰 Support This Project</h2>
+            <p className="text-gray-600 text-sm">Support this project so that we can provide you with better data</p>
           </div>
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Why Donate?</h3>
-              <ul className="text-sm text-gray-700 space-y-1">
-                <li>• Enables premium API tiers for faster, more reliable data</li>
-                <li>• Supports server hosting and maintenance costs</li>
-                <li>• Allows for new features and improvements</li>
-                <li>• Keeps the service free for everyone</li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-700">EVM (Ethereum, Polygon, etc.)</span>
-                  <span className="text-xs text-gray-500">Click to copy</span>
-                </div>
-                <div className="relative">
-                  <code 
-                    className="bg-white px-3 py-2 rounded text-sm cursor-pointer hover:bg-gray-100 transition-colors block break-all border"
-                    onClick={() => {
-                      navigator.clipboard.writeText('0x36de990133D36d7E3DF9a820aA3eDE5a2320De71');
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 2000);
-                      trackEvent('donation_address_copy', {
-                        event_category: 'engagement',
-                        event_label: 'EVM API Support Donation',
-                      });
-                    }}
-                    title="Click to copy EVM address"
-                  >
-                    0x36de990133D36d7E3DF9a820aA3eDE5a2320De71
-                  </code>
-                  {copied && (
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-xs px-2 py-1 rounded shadow-lg animate-pulse">
-                      Copied!
-                    </div>
-                  )}
-                </div>
+          <div className="max-w-xl mx-auto space-y-3">
+            <div className="bg-gray-50 rounded-lg p-3">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-gray-700">EVM</span>
+                <span className="text-xs text-gray-500">Click to copy</span>
               </div>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-700">Solana</span>
-                  <span className="text-xs text-gray-500">Click to copy</span>
-                </div>
-                <div className="relative">
-                  <code 
-                    className="bg-white px-3 py-2 rounded text-sm cursor-pointer hover:bg-gray-100 transition-colors block break-all border"
-                    onClick={() => {
-                      navigator.clipboard.writeText('J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg');
-                      setCopiedSolana(true);
-                      setTimeout(() => setCopiedSolana(false), 2000);
-                      trackEvent('donation_address_copy', {
-                        event_category: 'engagement',
-                        event_label: 'Solana Mac Mini Donation',
-                      });
-                    }}
-                    title="Click to copy Solana address"
-                  >
-                    J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg
-                  </code>
-                  {copiedSolana && (
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-xs px-2 py-1 rounded shadow-lg animate-pulse">
-                      Copied!
-                    </div>
-                  )}
-                </div>
+              <div className="relative">
+                <code 
+                  className="bg-white px-2 py-1 rounded text-xs cursor-pointer hover:bg-gray-100 transition-colors block break-all border"
+                  onClick={() => {
+                    navigator.clipboard.writeText('0x36de990133D36d7E3DF9a820aA3eDE5a2320De71');
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                    trackEvent('donation_address_copy', {
+                      event_category: 'engagement',
+                      event_label: 'EVM API Support Donation',
+                    });
+                  }}
+                  title="Click to copy EVM address"
+                >
+                  0x36de990133D36d7E3DF9a820aA3eDE5a2320De71
+                </code>
+                {copied && (
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-xs px-2 py-1 rounded shadow-lg animate-pulse">
+                    Copied!
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-3">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-gray-700">Solana</span>
+                <span className="text-xs text-gray-500">Click to copy</span>
+              </div>
+              <div className="relative">
+                <code 
+                  className="bg-white px-2 py-1 rounded text-xs cursor-pointer hover:bg-gray-100 transition-colors block break-all border"
+                  onClick={() => {
+                    navigator.clipboard.writeText('J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg');
+                    setCopiedSolana(true);
+                    setTimeout(() => setCopiedSolana(false), 2000);
+                    trackEvent('donation_address_copy', {
+                      event_category: 'engagement',
+                      event_label: 'Solana Mac Mini Donation',
+                    });
+                  }}
+                  title="Click to copy Solana address"
+                >
+                  J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg
+                </code>
+                {copiedSolana && (
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-xs px-2 py-1 rounded shadow-lg animate-pulse">
+                    Copied!
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
 
         {/* Disclaimer Section */}
-        <div id="disclaimer" className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">⚠️ Important Disclaimer</h2>
-            <p className="text-gray-600">Please read this important information before using this service</p>
+        <div id="disclaimer" className="bg-white rounded-lg shadow-lg p-6 mb-8">
+          <div className="text-center mb-4">
+            <h2 className="text-xl font-bold text-gray-900 mb-2">⚠️ Disclaimer</h2>
           </div>
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-6">
-              <h3 className="text-lg font-semibold text-amber-900 mb-3">Financial Disclaimer</h3>
-              <p className="text-amber-800 text-sm leading-relaxed">
-                <strong>Nothing on this website constitutes financial investment advice or recommendations whatsoever.</strong> 
-                The information provided is for educational and informational purposes only. Market cap comparisons are provided 
-                as data points and should not be interpreted as investment guidance.
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm">
+              <p className="text-amber-800">
+                <strong>Nothing on this website constitutes financial investment advice.</strong> 
+                This is for informational purposes only. Market data is provided &quot;as is&quot; without warranty. 
+                Consult qualified financial professionals before making investment decisions.
               </p>
-            </div>
-            <div className="space-y-4 text-sm text-gray-700">
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Data Accuracy</h4>
-                <p>While we strive for accuracy, market data is provided &quot;as is&quot; without warranty. Always verify information with official sources before making any financial decisions.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Not Investment Advice</h4>
-                <p>This tool is for informational purposes only. Consult with qualified financial professionals before making investment decisions.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Risk Warning</h4>
-                <p>Cryptocurrency and stock investments carry significant risk. Past performance does not guarantee future results. You may lose your entire investment.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Data Sources</h4>
-                <p>NVIDIA data sourced from Yahoo Finance. Cryptocurrency data from CoinGecko. Neither endorses this comparison tool.</p>
-              </div>
             </div>
           </div>
         </div>
