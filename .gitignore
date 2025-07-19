@@ -43,3 +43,11 @@ next-env.d.ts
 # project documentation with sensitive info
 PROJECT_HISTORY.md
 DEVELOPMENT_NOTES.md
+SECURITY_GUIDELINES.md
+SECURITY_AUDIT_*.md
+AUDIT_REPORTS/
+*.security.md
+.claude/
+security-reports/
+internal-docs/
+TODO_SECURITY.md
