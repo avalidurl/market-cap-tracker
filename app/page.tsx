@@ -371,11 +371,11 @@ export default function Home() {
               🎮 Discord Server
             </a>
             <a
-              href="https://x.com/0xgokhan"
+              href="https://x.com/goekhan"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-gray-900 text-white px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-              onClick={() => trackLinkClick('Twitter Profile', 'https://x.com/0xgokhan')}
+              onClick={() => trackLinkClick('Twitter Profile', 'https://x.com/goekhan')}
             >
               🐦 Twitter
             </a>
@@ -478,13 +478,13 @@ export default function Home() {
           <div>
             Made by{' '}
             <a 
-              href="https://x.com/0xgokhan" 
+              href="https://x.com/goekhan" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-800 underline"
-              onClick={() => trackLinkClick('Twitter Profile', 'https://x.com/0xgokhan')}
+              onClick={() => trackLinkClick('Twitter Profile', 'https://x.com/goekhan')}
             >
-              @0xgokhan
+              @goekhan
             </a>
           </div>
         </div>
