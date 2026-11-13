@@ -1,0 +1,6 @@
+name = "gokhan-market-cap-tracker"
+compatibility_date = "2026-11-13"
+pages_build_output_dir = "out"
+
+# Optional: wrangler pages secret put ALPHA_VANTAGE_API_KEY
+# The /api/nvidia function falls back to Yahoo Finance when this is unset.

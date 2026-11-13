@@ -332,8 +332,8 @@ export default function Home() {
         {/* Data Sources */}
         <div className="text-center text-sm text-gray-600 mb-8">
           <p>
-            Data sources: <a href="https://www.alphavantage.co" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Alpha Vantage</a> (NVIDIA), <a href="https://www.coingecko.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">CoinGecko</a> (Crypto) | 
-            Built with <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Next.js</a> on <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Vercel</a>
+            Data sources: <a href="https://finance.yahoo.com/quote/NVDA" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Yahoo Finance</a> or <a href="https://www.alphavantage.co" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Alpha Vantage</a> (NVIDIA), <a href="https://www.coingecko.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">CoinGecko</a> (Crypto) | 
+            Built with <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Next.js</a> on <a href="https://pages.cloudflare.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">Cloudflare Pages</a>
           </p>
         </div>
 
