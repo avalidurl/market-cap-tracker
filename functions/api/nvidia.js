@@ -75,14 +75,12 @@ async function fromYahoo() {
   if (!Number.isFinite(price)) throw new Error("Yahoo returned no price");
   const prev = Number(meta?.chartPreviousClose ?? meta?.previousClose);
   const change = Number.isFinite(prev) ? price - prev : 0;
-  let changePercent = Number(meta?.regularMarketChangePercent);
-  if (!Number.isFinite(changePercent) && Number.isFinite(prev) && prev !== 0) {
-    changePercent = (change / prev) * 100;
-  }
+  const changePercent =
+    Number.isFinite(prev) && prev !== 0 ? (change / prev) * 100 : 0;
   return payload({
     price,
     change: Number(change.toFixed(4)),
-    changePercent: Number((changePercent || 0).toFixed(4)),
+    changePercent: Number(changePercent.toFixed(4)),
     source: "yahoo",
   });
 }
